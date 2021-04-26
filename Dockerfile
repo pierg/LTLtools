@@ -32,32 +32,33 @@ RUN apt -qq -y update && \
 
 # Copy repository with dependencies
 
-COPY . /home/
+RUN mkdir /home/ltltools
+COPY . /home/ltltools/
 
-WORKDIR /home/dependencies/ubuntu
+WORKDIR /home/ltltools/dependencies/ubuntu
 
 # Install GraalVM and compile Strix from source
-# Place graalvm-ce-java11-linux-amd64-21.1.0.tar.gz and strix_source.zip in /home/dependencies/ubuntu
+# Place graalvm-ce-java11-linux-amd64-21.1.0.tar.gz and strix_source.zip in /home/ltltools/dependencies/ubuntu
 #RUN tar -xf graalvm-ce-java11-linux-amd64-21.1.0.tar
 #RUN unzip strix_source.zip
 #RUN mv graalvm-ce-java11-21.1.0 java-11-graalvm
 #RUN mv ./java-11-graalvm /usr/lib/jvm/
 #RUN /usr/lib/jvm/java-11-graalvm/bin/gu install native-image
-#WORKDIR /home/dependencies/ubuntu/strix
+#WORKDIR /home/ltltools/dependencies/ubuntu/strix
 #RUN make
 
 # Extract dependencies and install Strix and nuXmV
-RUN unzip strix_bin.zip
+RUN unzip strix_bin_ubuntu_21_04.zip
 RUN unzip nuXmv_bin.zip
-RUN mv /home/dependencies/ubuntu/bin/libowl.so /usr/bin
-RUN mv /home/dependencies/ubuntu/bin/strix /usr/bin
+RUN mv /home/ltltools/dependencies/ubuntu/bin/libowl.so /usr/bin
+RUN mv /home/ltltools/dependencies/ubuntu/bin/strix /usr/bin
 
 # Export Library
 ENV LD_LIBRARY_PATH="/usr/bin"
 RUN export LD_LIBRARY_PATH
 
 # Copy Compiled NuXmv
-RUN mv /home/dependencies/ubuntu/nuXmv /usr/bin
+RUN mv /home/ltltools/dependencies/ubuntu/nuXmv /usr/bin
 RUN chmod +x /usr/bin/nuXmv
 
 # Installing SPOT
@@ -80,5 +81,6 @@ RUN apt update \
 
 WORKDIR /home
 
+RUN rm -r ltltools
 
 CMD ["bash"]
