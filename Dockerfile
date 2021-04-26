@@ -1,5 +1,10 @@
 FROM ubuntu:21.04
 
+RUN apt -qq -y update && \
+    DEBIAN_FRONTEND=noninteractive apt -y install curl gnupg2
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
 RUN apt update && \
     apt install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/*
@@ -31,9 +36,9 @@ COPY . /home/
 
 WORKDIR /home/dependencies/ubuntu
 
-## Install GraalVM and compile Strix from source
-## Place graalvm-ce-java11-linux-amd64-21.1.0.tar.gz and strix_source.zip in /home/dependencies/ubuntu
-#RUN tar -xf graalvm-ce-java11-linux-amd64-21.1.0.tar.gz
+# Install GraalVM and compile Strix from source
+# Place graalvm-ce-java11-linux-amd64-21.1.0.tar.gz and strix_source.zip in /home/dependencies/ubuntu
+#RUN tar -xf graalvm-ce-java11-linux-amd64-21.1.0.tar
 #RUN unzip strix_source.zip
 #RUN mv graalvm-ce-java11-21.1.0 java-11-graalvm
 #RUN mv ./java-11-graalvm /usr/lib/jvm/
