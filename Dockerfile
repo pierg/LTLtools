@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:20.04
 
 #RUN apt update && \
 #    apt install -y software-properties-common && \
@@ -13,12 +13,13 @@ RUN apt -qq -y update && \
 #        g++ \
 #        cmake \
 #        make \
-#        libboost-dev \
-#        libboost-program-options-dev \
-#        libboost-filesystem-dev \
-#        libboost-iostreams-dev \
-#        zlib1g-dev \
+        libboost-dev \
+        libboost-program-options-dev \
+        libboost-filesystem-dev \
+        libboost-iostreams-dev \
+        zlib1g-dev \
 #        openjdk-13-jdk \
+        gnupg2 \
         unzip \
 #        git \
         wget
