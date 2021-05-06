@@ -27,6 +27,7 @@ RUN apt -qq -y update && \
         gnupg2 \
         unzip \
         git \
+        ca-certificates \
         wget
 
 
@@ -78,6 +79,7 @@ RUN apt update \
       && ln -s /usr/bin/python3 python \
       && pip3 --no-cache-dir install --upgrade pip \
       && rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /home
 
