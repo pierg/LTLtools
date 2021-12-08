@@ -51,6 +51,8 @@ WORKDIR /home/ltltools/dependencies/ubuntu
 # Extract dependencies and install Strix and nuXmV
 RUN unzip strix_bin_ubuntu_21_04.zip
 RUN unzip nuXmv_bin.zip
+RUN unzip NuSMV.zip
+RUN unzip spot.zip
 RUN mv /home/ltltools/dependencies/ubuntu/bin/libowl.so /usr/bin
 RUN mv /home/ltltools/dependencies/ubuntu/bin/strix /usr/bin
 
@@ -62,16 +64,12 @@ RUN export LD_LIBRARY_PATH
 RUN mv /home/ltltools/dependencies/ubuntu/nuXmv /usr/bin
 RUN chmod +x /usr/bin/nuXmv
 
-# Installing SPOT
-RUN wget -q -O - https://www.lrde.epita.fr/repo/debian.gpg | apt-key add -
-RUN echo 'deb http://www.lrde.epita.fr/repo/debian/ stable/' >> /etc/apt/sources.list
+# Copy Compiled NuSMV
+RUN mv /home/ltltools/dependencies/ubuntu/NuSMV /usr/bin
+RUN chmod +x /usr/bin/NuSMV
 
-RUN apt -y update && DEBIAN_FRONTEND=noninteractive && \
-    apt install -y \
-    spot \
-    libspot-dev \
-    spot-doc \
-    python3-spot
+RUN mv /home/ltltools/dependencies/ubuntu/ltl2smv /usr/bin
+RUN chmod +x /usr/bin/ltl2smv
 
 # Install Python 3
 RUN apt update \
@@ -82,8 +80,13 @@ RUN apt update \
       && rm -rf /var/lib/apt/lists/*
 
 
+# Installing SPOT
+WORKDIR /home/ltltools/dependencies/ubuntu/spot
+RUN ./configure
+RUN make && make check && make install
+
+
 WORKDIR /home
 
-RUN rm -r ltltools
 
 CMD ["bash"]
