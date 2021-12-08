@@ -70,7 +70,8 @@ RUN apt -y update && DEBIAN_FRONTEND=noninteractive && \
     apt install -y \
     spot \
     libspot-dev \
-    spot-doc
+    spot-doc \
+    python3-spot
 
 # Install Python 3
 RUN apt update \
