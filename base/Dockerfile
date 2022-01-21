@@ -88,5 +88,10 @@ RUN make && make check && make install
 
 WORKDIR /home
 
+RUN mkdir dependencies
+RUN mkdir dependencies/spot
+RUN mv /home/ltltools/dependencies/ubuntu/spot/python/spot/* /home/dependencies/spot
+
+RUN rm -r /home/ltltools
 
 CMD ["bash"]
