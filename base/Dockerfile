@@ -83,7 +83,7 @@ RUN apt update \
 WORKDIR /home/ltltools/dependencies/ubuntu/
 RUN git clone https://gitlab.lrde.epita.fr/spot/spot.git
 WORKDIR /home/ltltools/dependencies/ubuntu/spot
-RUN ./configure
+#RUN ./configure
 RUN make && make check && make install
 
 
