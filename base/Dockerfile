@@ -52,7 +52,7 @@ WORKDIR /home/ltltools/dependencies/ubuntu
 RUN unzip strix_bin_ubuntu_21_04.zip
 RUN unzip nuXmv_bin.zip
 RUN unzip NuSMV.zip
-RUN unzip spot-2.10.3.zip
+#RUN unzip spot-2.10.3.zip
 RUN mv /home/ltltools/dependencies/ubuntu/bin/libowl.so /usr/bin
 RUN mv /home/ltltools/dependencies/ubuntu/bin/strix /usr/bin
 
@@ -80,10 +80,10 @@ RUN apt update \
       && rm -rf /var/lib/apt/lists/*
 
 
-# Installing SPOT
-WORKDIR /home/ltltools/dependencies/ubuntu/spot
-RUN ./configure
-RUN make && make check && make install
+## Installing SPOT
+#WORKDIR /home/ltltools/dependencies/ubuntu/spot
+#RUN ./configure
+#RUN make && make check && make install
 
 
 
@@ -92,7 +92,7 @@ ARG UBUNTU_VER=21.04
 ARG CONDA_VER=latest
 ARG OS_TYPE=x86_64
 ARG PY_VER=3.9.7
-FROM ubuntu:${UBUNTU_VER}
+
 # System packages
 RUN apt-get update && apt-get install -yq curl wget jq vim
 # Use the above args during building https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
