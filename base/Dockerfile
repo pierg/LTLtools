@@ -52,6 +52,7 @@ WORKDIR /home/ltltools/dependencies/ubuntu
 RUN unzip strix_bin_ubuntu_21_04.zip
 RUN unzip nuXmv_bin.zip
 RUN unzip NuSMV.zip
+RUN unzip spot-2.10.3.zip
 RUN mv /home/ltltools/dependencies/ubuntu/bin/libowl.so /usr/bin
 RUN mv /home/ltltools/dependencies/ubuntu/bin/strix /usr/bin
 
@@ -80,10 +81,8 @@ RUN apt update \
 
 
 # Installing SPOT
-WORKDIR /home/ltltools/dependencies/ubuntu/
-RUN git clone https://gitlab.lrde.epita.fr/spot/spot.git
 WORKDIR /home/ltltools/dependencies/ubuntu/spot
-#RUN ./configure
+RUN ./configure
 RUN make && make check && make install
 
 
@@ -114,7 +113,6 @@ RUN conda install -c anaconda -y python=${PY_VER}
 
 
 WORKDIR /home
-
 
 RUN mkdir dependencies
 RUN mkdir dependencies/spot
